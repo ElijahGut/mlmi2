@@ -47,7 +47,10 @@ def visualise_phone_frequencies():
 	f.close()
 	g.close()
 
-	plt.barh(*zip(*phn_count_dict.items()))
+
+	sorted_items = sorted(phn_count_dict.items(), key=lambda x: x[1], reverse=True)
+
+	plt.bar(*zip(*sorted_items))
 	plt.show()
 	
 visualise_phone_frequencies()
