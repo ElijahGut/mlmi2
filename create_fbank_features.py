@@ -22,25 +22,26 @@ def extract_fbank_from_file(fname):
 		fbank_obj = fbank_data[key]
 		wav_path = fbank_obj['wav']
 		
+		path_to_save = os.path.join(f'/rds/user/ejg84/hpc-work/MLMI2/TIMIT/data/fbanks/{fname.stem}', spk_id) 
+		'''
 		# load wav file 
 		loaded_wav, sample_rate = torchaudio.load(wav_path)
 		fbank_features = kaldi.fbank(loaded_wav)	
 		
 		# save fbank features to TIMIT/data/fbanks/fname/spk_id/fbank_id	
 		
-		path_to_save = os.path.join(f'/rds/user/ejg84/hpc-work/MLMI2/TIMIT/data/fbanks/{fname.stem}', spk_id) 
-		
 		if os.path.exists(path_to_save) != True:
 			os.mkdir(path_to_save)			
 
 		torch.save(fbank_features, os.path.join(path_to_save,fbank_id))
+		'''
 
 		# construct json to write
 		val = {}	
 		val['duration'] = fbank_obj['duration']
 		val['phn'] = fbank_obj['phn'] 	
 		val['spk_id'] = spk_id
-		val['fbank'] = path_to_save
+		val['fbank'] = os.path.join(path_to_save, fbank_id)
 
 		json_to_write[key] = val
 
@@ -49,7 +50,7 @@ def extract_fbank_from_file(fname):
 	
 	g = open(path_to_write, "w+")
 	g.write(json_str)
-	g.close	
+	g.close 
 			
 files_to_extract = ['train.json', 'test.json', 'dev.json']
 

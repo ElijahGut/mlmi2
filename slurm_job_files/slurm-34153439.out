@@ -1,0 +1,31 @@
+activate does not accept more than one argument:
+['0.1', '0']
+
+Changed directory to /rds/user/ejg84/hpc-work/MLMI2/exp.
+
+JobID: 34153439
+======
+Time: Wed Nov 29 15:59:54 GMT 2023
+Running on master node: cpu-p-68
+Current directory: /rds/user/ejg84/hpc-work/MLMI2/exp
+Can't load '/usr/local/software/slurm/slurm-22.05.10-rhel8/lib64/perl5/auto/Slurm/Slurm.so' for module Slurm: libperl.so.5.26: cannot open shared object file: No such file or directory at /usr/lib64/perl5/DynaLoader.pm line 190, <DATA> line 604.
+ at /usr/local/software/slurm/current-rhel8/bin/generate_pbs_nodefile line 18.
+Compilation failed in require at /usr/local/software/slurm/current-rhel8/bin/generate_pbs_nodefile line 18, <DATA> line 604.
+BEGIN failed--compilation aborted at /usr/local/software/slurm/current-rhel8/bin/generate_pbs_nodefile line 18, <DATA> line 604.
+
+Nodes allocated:
+================
+
+
+numtasks=, numnodes=1, mpi_tasks_per_node=1 (OMP_NUM_THREADS=1)
+
+Executing command:
+==================
+python -u run.py --dropout=0.1 --seed=0 > logs/out.34153439
+
+Traceback (most recent call last):
+  File "run.py", line 1, in <module>
+    from dataloader import get_dataloader
+  File "/rds/user/ejg84/hpc-work/MLMI2/exp/dataloader.py", line 5, in <module>
+    import torch
+ImportError: No module named torch

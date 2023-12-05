@@ -1,0 +1,3 @@
+--dropout 10
+--dropout 40
+--dropout 80
