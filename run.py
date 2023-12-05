@@ -40,35 +40,35 @@ with open(args.vocab) as f:
     for id, text in enumerate(f):
         vocab[text.strip()] = id
 
-# if torch.cuda.is_available():
-#     device = "cuda:0"
-# else:
-#     device = "cpu"
+if torch.cuda.is_available():
+    device = "cuda:0"
+else:
+    device = "cpu"
 
-# print(args)
-# args.device = device
-# args.vocab = vocab
+print(args)
+args.device = device
+args.vocab = vocab
 
-# model = models.BiLSTM(args.num_layers, args.fbank_dims * args.concat, args.model_dims, len(args.vocab), dropout=args.dropout)
+model = models.BiLSTM(args.num_layers, args.fbank_dims * args.concat, args.model_dims, len(args.vocab), dropout=args.dropout)
 
-# if torch.__version__ == "2.1.0":
-#     model = torch.compile(model)
+if torch.__version__ == "2.1.0":
+    model = torch.compile(model)
 
-# num_params = sum(p.numel() for p in model.parameters())
-# print('Total number of model parameters is {}'.format(num_params))
+num_params = sum(p.numel() for p in model.parameters())
+print('Total number of model parameters is {}'.format(num_params))
 
 
-# start = datetime.now()
-# model.to(args.device)
-# model_path = train(model, args)
-# end = datetime.now()
-# duration = (end - start).total_seconds()
-# print('Training finished in {} minutes.'.format(divmod(duration, 60)[0]))
-# print('Model saved to {}'.format(model_path))
+start = datetime.now()
+model.to(args.device)
+model_path = train(model, args)
+end = datetime.now()
+duration = (end - start).total_seconds()
+print('Training finished in {} minutes.'.format(divmod(duration, 60)[0]))
+print('Model saved to {}'.format(model_path))
 
-# print('Loading model from {}'.format(model_path))
-# model.load_state_dict(torch.load(model_path))
-# model.eval()
-# model.to(device)
-# results = decode(model, args, args.test_json)
-# print("SUB: {:.2f}%, DEL: {:.2f}%, INS: {:.2f}%, COR: {:.2f}%, PER: {:.2f}%".format(*results))
+print('Loading model from {}'.format(model_path))
+model.load_state_dict(torch.load(model_path))
+model.eval()
+model.to(device)
+results = decode(model, args, args.test_json)
+print("SUB: {:.2f}%, DEL: {:.2f}%, INS: {:.2f}%, COR: {:.2f}%, PER: {:.2f}%".format(*results))
