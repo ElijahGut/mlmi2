@@ -19,9 +19,9 @@ def train(model, args):
     criterion = CTCLoss(zero_infinity=True)
 
     if args.optimiser == 'adam':
-        optimiser = SGD(model.parameters(), lr=args.lr)
+        optimiser = Adam(model.parameters(), lr=args.lr)
     else:
-        optimiser = Adam(model.parameters(), lr=args.lr) 
+        optimiser = SGD(model.parameters(), lr=args.lr) 
 
     def train_one_epoch(epoch):
         running_loss = 0.
