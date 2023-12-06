@@ -1,3 +1,0 @@
-Namespace(seed=123, train_json='train_fbank.json', val_json='dev_fbank.json', test_json='test_fbank.json', batch_size=4, num_layers=1, fbank_dims=23, model_dims=128, concat=1, lr=0.5, vocab='vocab_39.txt', report_interval=50, num_epochs=20, dropout=0.8, optimiser='sgd')
-Total number of model parameters is 166952
-EPOCH 1:
