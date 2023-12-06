@@ -45,7 +45,8 @@ def train(model, args):
             loss = criterion(outputs, targets, in_lens, out_lens)
             loss.backward()
 
-            clip_grad_norm_(model.parameters(), args.grad_clip)
+            if args.grad_clip != None:
+                clip_grad_norm_(model.parameters(), args.grad_clip)
 
             optimiser.step()
 
