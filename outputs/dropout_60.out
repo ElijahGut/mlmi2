@@ -1,0 +1,21 @@
+LOSS train 2.00676 valid 1.95640, valid PER 75.33%
+LOSS train 1.69210 valid 1.58414, valid PER 61.93%
+LOSS train 1.49713 valid 1.41646, valid PER 51.90%
+LOSS train 1.46760 valid 1.29617, valid PER 43.01%
+LOSS train 1.39832 valid 1.21174, valid PER 40.39%
+LOSS train 1.32953 valid 1.22584, valid PER 39.91%
+LOSS train 1.33917 valid 1.22168, valid PER 39.96%
+LOSS train 1.25048 valid 1.14475, valid PER 38.13%
+LOSS train 1.20974 valid 1.10440, valid PER 36.67%
+LOSS train 1.18978 valid 1.15393, valid PER 38.60%
+LOSS train 1.18851 valid 1.08242, valid PER 36.39%
+LOSS train 1.20172 valid 1.08568, valid PER 36.40%
+LOSS train 1.17298 valid 1.05075, valid PER 35.21%
+LOSS train 1.12466 valid 1.07328, valid PER 35.08%
+LOSS train 1.16118 valid 1.10133, valid PER 36.28%
+LOSS train 1.14264 valid 1.08323, valid PER 35.43%
+LOSS train 1.14421 valid 1.06134, valid PER 34.78%
+LOSS train 1.11282 valid 1.04799, valid PER 34.69%
+LOSS train 1.10719 valid 1.04373, valid PER 34.94%
+LOSS train 1.08276 valid 1.01468, valid PER 33.17%
+SUB: 16.15%, DEL: 17.02%, INS: 1.39%, COR: 66.83%, PER: 34.56%

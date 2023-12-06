@@ -3,9 +3,10 @@ from pathlib import Path
 
 import torch
 from torch.nn import CTCLoss
+from torch.nn.utils import clip_grad_norm_
 from torch.nn.utils.rnn import pad_sequence
 from torch.nn.functional import log_softmax
-from torch.optim import SGD
+from torch.optim import SGD, Adam
 from decoder import decode
 from utils import concat_inputs
 
@@ -16,7 +17,11 @@ def train(model, args):
     train_loader = get_dataloader(args.train_json, args.batch_size, True)
     val_loader = get_dataloader(args.val_json, args.batch_size, False)
     criterion = CTCLoss(zero_infinity=True)
-    optimiser = SGD(model.parameters(), lr=args.lr)
+
+    if args.optimiser == 'adam':
+        optimiser = SGD(model.parameters(), lr=args.lr)
+    else:
+        optimiser = Adam(model.parameters(), lr=args.lr) 
 
     def train_one_epoch(epoch):
         running_loss = 0.
@@ -39,6 +44,8 @@ def train(model, args):
             outputs = log_softmax(model(inputs), dim=-1)
             loss = criterion(outputs, targets, in_lens, out_lens)
             loss.backward()
+
+            clip_grad_norm_(model.parameters(), args.grad_clip)
 
             optimiser.step()
 

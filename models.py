@@ -5,6 +5,8 @@ class BiLSTM(nn.Module):
         super().__init__()
         self.num_layers = num_layers
         self.lstm = nn.LSTM(in_dims, hidden_dims, self.num_layers, bidirectional=True)
+        if num_layers > 1:
+            self.lstm = nn.LSTM(in_dims, hidden_dims, self.num_layers, bidirectional=True, dropout=dropout)
         self.proj = nn.Linear(hidden_dims * 2, out_dims)
         self.dropout_layer = nn.Dropout(dropout)
 

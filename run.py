@@ -27,6 +27,7 @@ parser.add_argument('--report_interval', type=int, default=50, help="report inte
 parser.add_argument('--num_epochs', type=int, default=20)
 parser.add_argument('--dropout', type=float, default=0)
 parser.add_argument('--optimiser', type=str, default="sgd")
+parser.add_argument('--grad_clip', type=float, default=1)
 
 
 args = parser.parse_args()

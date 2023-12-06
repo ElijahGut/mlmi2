@@ -37,7 +37,7 @@
 #! ######################################################################################
 #! ######################################################################################
 #! set configurations in run.py, e.g. options="--train_json=train_fbank.json --lr=0.01"options="--dropout=10 --seed=0"
-options="--dropout=0.4 --optimiser=adam"
+options="--dropout=0.3"
 #! ######################################################################################
 #! ######################################################################################
 
@@ -103,7 +103,7 @@ if [ "$SLURM_JOB_NODELIST" ]; then
         export NODEFILE=`generate_pbs_nodefile`
         cat $NODEFILE | uniq > machine_files/machine.file.$JOBID
         echo -e "\nNodes allocated:\n================"
-        echo `cat machine_job_files/machine.file.$JOBID | sed -e 's/\..*$//g'`
+        echo `cat machine_files/machine.file.$JOBID | sed -e 's/\..*$//g'`
 fi
 
 echo -e "\nnumtasks=$numtasks, numnodes=$numnodes, mpi_tasks_per_node=$mpi_tasks_per_node (OMP_NUM_THREADS=$OMP_NUM_THREADS)"
