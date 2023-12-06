@@ -67,9 +67,13 @@ def process_logs():
             diff_list = list(diff.keys())
             
             if len(diff_list) == 1:
-                diff_arg = diff_list[0]
-                diff_arg_setting = [int(v) for v in diff.values()][0]
-                print(f'processing experiment: {diff_arg}, {diff_arg_setting}...')
+                fname = ""
+                for i in range(len(diff_list)):
+                    diff_arg = diff_list[i]
+                    diff_arg_setting = [int(v) for v in diff.values()][i]
+                    if len(fname) < 255:
+                        fname += f"{diff_arg}_{diff_arg_setting}"
+                print(f'fname for experiment: {fname}')
 
                 with open(f'outputs/{diff_arg}_{diff_arg_setting}.out', 'w+') as g:
                     for line in lines:
