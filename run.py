@@ -28,6 +28,7 @@ parser.add_argument('--num_epochs', type=int, default=20)
 parser.add_argument('--dropout', type=float, default=0)
 parser.add_argument('--optimiser', type=str, default="sgd")
 parser.add_argument('--grad_clip', type=float, default=None)
+parser.add_argument('--is_bidir', type=float, default=True)
 
 
 args = parser.parse_args()
@@ -50,7 +51,8 @@ print(args)
 args.device = device
 args.vocab = vocab
 
-model = models.BiLSTM(args.num_layers, args.fbank_dims * args.concat, args.model_dims, len(args.vocab), dropout=args.dropout)
+model = models.BiLSTM(args.num_layers, args.fbank_dims * args.concat, args.model_dims, 
+len(args.vocab), dropout=args.dropout, is_bidir=args.is_bidir)
 
 if torch.__version__ == "2.1.0":
     model = torch.compile(model)

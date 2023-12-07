@@ -1,0 +1,22 @@
+Total number of model parameters is 166952
+LOSS train 1.83105 valid 1.78322, valid PER 70.01%
+LOSS train 1.53675 valid 1.48514, valid PER 54.72%
+LOSS train 1.34497 valid 1.30476, valid PER 45.87%
+LOSS train 1.32292 valid 1.23260, valid PER 42.17%
+LOSS train 1.22690 valid 1.15450, valid PER 38.07%
+LOSS train 1.15648 valid 1.12316, valid PER 37.51%
+LOSS train 1.14513 valid 1.08908, valid PER 35.98%
+LOSS train 1.07641 valid 1.04974, valid PER 33.74%
+LOSS train 1.02587 valid 1.03023, valid PER 33.10%
+LOSS train 1.01423 valid 1.06688, valid PER 35.29%
+LOSS train 1.01185 valid 1.00638, valid PER 32.26%
+LOSS train 0.98957 valid 0.98221, valid PER 31.56%
+LOSS train 0.95532 valid 1.00608, valid PER 31.62%
+LOSS train 0.91546 valid 0.99734, valid PER 31.56%
+LOSS train 0.90985 valid 0.99165, valid PER 31.14%
+LOSS train 0.86916 valid 0.95902, valid PER 29.38%
+LOSS train 0.84777 valid 0.96238, valid PER 30.35%
+LOSS train 0.87012 valid 0.98951, valid PER 31.20%
+LOSS train 0.86432 valid 0.96102, valid PER 30.00%
+LOSS train 0.84160 valid 0.94685, valid PER 28.94%
+SUB: 14.60%, DEL: 14.25%, INS: 2.24%, COR: 71.15%, PER: 31.09%

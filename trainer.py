@@ -50,7 +50,7 @@ def train(model, args):
                 clip_grad_norm_(model.parameters(), args.grad_clip)
 
             # what's a good patience?
-#            scheduler = ReduceLROnPlateau(optimiser, 'min', patience=1, factor=0.5)
+            scheduler = ReduceLROnPlateau(optimiser, 'min', patience=0, factor=0.5)
 
             optimiser.step()
 
@@ -67,7 +67,9 @@ def train(model, args):
     best_val_loss = 1e+6
 
     for epoch in range(args.num_epochs):
-        print('EPOCH {}:'.format(epoch + 1))
+        current_learning_rate = optimizer.param_groups[0]['lr']
+        print(f"EPOCH {epoch + 1}, Learning Rate: {current_learning_rate}")
+        # print('EPOCH {}:'.format(epoch + 1))
         model.train(True)
         avg_train_loss = train_one_epoch(epoch)
 

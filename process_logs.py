@@ -56,33 +56,44 @@ def compute_diff(dict1, dict2):
 
 def process_logs():
     logs = os.listdir(logs_dir)
+    print(logs)
     for l in logs:
         with open(os.path.join(logs_dir,l), 'r') as f:
-            lines = f.readlines()
-        if len(lines) == length_of_full_report:
-            log_args = convert_to_dict(lines[0])
+            try:
+                lines = f.readlines()
+            except:
+                print(f'{l} is invalid')
+                
         
-            # see which arg differs from default i.e. what are we changing for this experiment?
-            diff = compute_diff(default_args, log_args) 
-            diff_list = list(diff.keys())
+        # log_args = convert_to_dict(lines[0])
+    
+        # see which arg differs from default i.e. what are we changing for this experiment?
+        # diff = compute_diff(default_args, log_args) 
+        # diff_list = list(diff.keys())
 
-            diff_arg = diff_list[-1]
-            diff_arg_setting = [int(v) for v in diff.values()][-1]
-            
-            fname = f"{diff_arg}_{diff_arg_setting}"
-            print(f'fname for experiment: {fname}')
-            with open(f'outputs/{fname}.out', 'w+') as g:
-                for line in lines:
-                    # Define a pattern to match the entire string
-                    pattern = re.compile(r'LOSS train \d+\.\d+ valid \d+\.\d+, valid PER \d+\.\d+%')
+        # print(diff, diff_list)
+        # diff_arg = diff_list[-1]
+        # diff_arg_setting = [v for v in diff.values()][-1]
+        
+        # fname = f"{diff_arg}_{diff_arg_setting}"
+        # # print(f'fname for experiment: {fname}')
 
-                    # Check if the string matches the pattern
-                    match = pattern.match(line)
-                    
-                    if match:
-                        g.write(line)
-                g.write(lines[-1])
-            g.close()
+        with open(f'outputs/{l}', 'w+') as g:
+            print(f'writing outputs/{l}...')
+            for line in lines:
+                # Define a pattern to match the entire string
+                pattern = re.compile(r'LOSS train \d+\.\d+ valid \d+\.\d+, valid PER \d+\.\d+%')
+
+                if 'Total number of model parameters is' in line:
+                    g.write(line)
+                
+                # Check if the string matches the pattern
+                match = pattern.match(line)
+                if match:
+                    g.write(line)
+                
+            g.write(lines[-1])
+        g.close()
         f.close()
 
 

@@ -1,12 +1,12 @@
 import torch.nn as nn
 
 class BiLSTM(nn.Module):
-    def __init__(self, num_layers, in_dims, hidden_dims, out_dims, dropout):
+    def __init__(self, num_layers, in_dims, hidden_dims, out_dims, dropout, is_bidir):
         super().__init__()
         self.num_layers = num_layers
-        self.lstm = nn.LSTM(in_dims, hidden_dims, self.num_layers, bidirectional=True)
+        self.lstm = nn.LSTM(in_dims, hidden_dims, self.num_layers, bidirectional=is_bidir)
         if num_layers > 1:
-            self.lstm = nn.LSTM(in_dims, hidden_dims, self.num_layers, bidirectional=True, dropout=dropout)
+            self.lstm = nn.LSTM(in_dims, hidden_dims, self.num_layers, bidirectional=is_bidir, dropout=dropout)
         self.proj = nn.Linear(hidden_dims * 2, out_dims)
         self.dropout_layer = nn.Dropout(dropout)
 
