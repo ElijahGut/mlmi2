@@ -50,8 +50,12 @@ print(args)
 args.device = device
 args.vocab = vocab
 
-model = models.BiLSTM(args.num_layers, args.fbank_dims * args.concat, args.model_dims, 
-len(args.vocab), dropout=args.dropout, is_bidir=args.is_bidir)
+if args.is_bidir:
+    model = models.BiLSTM(args.num_layers, args.fbank_dims * args.concat, args.model_dims, 
+    len(args.vocab), dropout=args.dropout, is_bidir=False)
+else:
+    model = models.BiLSTM(args.num_layers, args.fbank_dims * args.concat, args.model_dims, 
+    len(args.vocab), dropout=args.dropout, is_bidir=True)
 
 if torch.__version__ == "2.1.0":
     model = torch.compile(model)
