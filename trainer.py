@@ -49,8 +49,8 @@ def train(model, args):
             if args.grad_clip != None:
                 clip_grad_norm_(model.parameters(), args.grad_clip)
 
-            # what's a good patience?
-            scheduler = ReduceLROnPlateau(optimiser, 'min', patience=0, factor=0.5)
+            # # what's a good patience?
+            # scheduler = ReduceLROnPlateau(optimiser, 'min', patience=0, factor=0.5)
 
             optimiser.step()
 
