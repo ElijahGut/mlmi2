@@ -28,8 +28,7 @@ parser.add_argument('--num_epochs', type=int, default=20)
 parser.add_argument('--dropout', type=float, default=0)
 parser.add_argument('--optimiser', type=str, default="sgd")
 parser.add_argument('--grad_clip', type=float, default=None)
-parser.add_argument('--is_bidir', type=float, default=True)
-
+parser.add_argument('--is_bidir', action='store_false', help='Set the flag to False')
 
 args = parser.parse_args()
 
