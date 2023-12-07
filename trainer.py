@@ -9,6 +9,7 @@ from torch.nn.functional import log_softmax
 from torch.optim import SGD, Adam
 from decoder import decode
 from utils import concat_inputs
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 from dataloader import get_dataloader
 
@@ -47,6 +48,9 @@ def train(model, args):
 
             if args.grad_clip != None:
                 clip_grad_norm_(model.parameters(), args.grad_clip)
+
+            # what's a good patience?
+            scheduler = ReduceLROnPlateau(optimiser, 'min', patience=1, factor=0.5)
 
             optimiser.step()
 
