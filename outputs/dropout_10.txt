@@ -1,0 +1,2 @@
+Total number of model parameters is 166952
+LOSS train nan valid nan, valid PER 100.00%
