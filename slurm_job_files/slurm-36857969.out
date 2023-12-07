@@ -1,0 +1,39 @@
+Loading rhel8/default-amp
+  Loading requirement: dot rhel8/slurm singularity/current rhel8/global
+    cuda/11.4 libpciaccess/0.16/gcc-9.4.0-6fonbj6
+    libiconv/1.16/gcc-9.4.0-ahebbov libxml2/2.9.12/gcc-9.4.0-gnknt5e
+    ncurses/6.2/gcc-9.4.0-aiirok7 hwloc/2.5.0/gcc-9.4.0-7sqomga
+    libevent/2.1.12/gcc-9.4.0-hgny7cm numactl/2.0.14/gcc-9.4.0-52dwc6n
+    cuda/11.4.0/gcc-9.4.0-3hnxhjt gdrcopy/2.2/gcc-9.4.0-e4igtfp
+    knem/1.1.4/gcc-9.4.0-bpbxgva libnl/3.3.0/gcc-9.4.0-whwhrwb
+    rdma-core/34.0/gcc-9.4.0-5eo5n2u ucx/1.11.1/gcc-9.4.0-lktqyl4
+    openmpi/4.1.1/gcc-9.4.0-epagguv
+Changed directory to /rds/user/ejg84/hpc-work/MLMI2/exp.
+
+JobID: 36857969
+======
+Time: Thu  7 Dec 19:07:53 GMT 2023
+Running on master node: gpu-q-1
+Current directory: /rds/user/ejg84/hpc-work/MLMI2/exp
+/var/spool/slurm/slurmd/job36857969/slurm_script: line 104: machine_files/machine.file.36857969: No such file or directory
+
+Nodes allocated:
+================
+cat: machine_files/machine.file.36857969: No such file or directory
+
+
+numtasks=1, numnodes=1, mpi_tasks_per_node=1 (OMP_NUM_THREADS=1)
+
+Executing command:
+==================
+python -u run.py -dropout=0.3 --grad_clip=0.5 --model_dims=512 > logs/out.36857969
+
+usage: run.py [-h] [--seed SEED] [--train_json TRAIN_JSON]
+              [--val_json VAL_JSON] [--test_json TEST_JSON]
+              [--batch_size BATCH_SIZE] [--num_layers NUM_LAYERS]
+              [--fbank_dims FBANK_DIMS] [--model_dims MODEL_DIMS]
+              [--concat CONCAT] [--lr LR] [--vocab VOCAB]
+              [--report_interval REPORT_INTERVAL] [--num_epochs NUM_EPOCHS]
+              [--dropout DROPOUT] [--optimiser OPTIMISER]
+              [--grad_clip GRAD_CLIP] [--is_bidir IS_BIDIR]
+run.py: error: unrecognized arguments: -dropout=0.3
