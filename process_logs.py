@@ -65,32 +65,28 @@ def process_logs():
             # see which arg differs from default i.e. what are we changing for this experiment?
             diff = compute_diff(default_args, log_args) 
             diff_list = list(diff.keys())
+
+            diff_arg = diff_list[-1]
+            diff_arg_setting = [int(v) for v in diff.values()][-1]
             
-            if len(diff_list) == 1:
-                fname = ""
-                for i in range(len(diff_list)):
-                    diff_arg = diff_list[i]
-                    diff_arg_setting = [int(v) for v in diff.values()][i]
-                    if len(fname) < 255:
-                        fname += f"{diff_arg}_{diff_arg_setting}"
-                print(f'fname for experiment: {fname}')
+            fname = f"{diff_arg}_{diff_arg_setting}"
+            print(f'fname for experiment: {fname}')
+            with open(f'outputs/{fname}.out', 'w+') as g:
+                for line in lines:
+                    # Define a pattern to match the entire string
+                    pattern = re.compile(r'LOSS train \d+\.\d+ valid \d+\.\d+, valid PER \d+\.\d+%')
 
-                with open(f'outputs/{diff_arg}_{diff_arg_setting}.out', 'w+') as g:
-                    for line in lines:
-                        # Define a pattern to match the entire string
-                        pattern = re.compile(r'LOSS train \d+\.\d+ valid \d+\.\d+, valid PER \d+\.\d+%')
-
-                        # Check if the string matches the pattern
-                        match = pattern.match(line)
-                        
-                        if match:
-                            g.write(line)
-                    g.write(lines[-1])
-                g.close()
+                    # Check if the string matches the pattern
+                    match = pattern.match(line)
+                    
+                    if match:
+                        g.write(line)
+                g.write(lines[-1])
+            g.close()
         f.close()
 
 
-default_args = convert_to_dict("Namespace(seed=123, train_json='train_fbank.json', val_json='dev_fbank.json', test_json='test_fbank.json', batch_size=4, num_layers=1, fbank_dims=23, model_dims=128, concat=1, lr=0.5, vocab='vocab_39.txt', report_interval=50, num_epochs=20, dropout=0, optimiser='sgd')")
+default_args = convert_to_dict("Namespace(seed=123, train_json='train_fbank.json', val_json='dev_fbank.json', test_json='test_fbank.json', batch_size=4, num_layers=1, fbank_dims=23, model_dims=128, concat=1, lr=0.5, vocab='vocab_39.txt', report_interval=50, num_epochs=20, dropout=0, optimiser='sgd', clipping=None)")
 logs_dir = 'logs'
 process_logs()
 
