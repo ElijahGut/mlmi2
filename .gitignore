@@ -2,3 +2,4 @@ venv
 checkpoints/
 __pycache__/
 MLMI2_practical_v2_1.pdf
+.DS_Store
