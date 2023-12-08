@@ -4,6 +4,24 @@ import torch
 from dataloader import get_dataloader
 from utils import concat_inputs
 
+# build global phone map
+phone_map = {}
+
+with open('phone_map') as f:
+    lines = f.readlines()
+    for line in lines:
+        line_split = line.split(':')
+        orig_phn = line_split[0]
+        mapped_39_phn = line_split[1]
+        phone_map[orig_phn] = mapped_39_phn.strip('\n')
+
+def map_to_39(phns):
+    mapped_phns = []
+    for phn in phns:
+        mapped_phn = phone_map[phn]
+        mapped_phns.append(mapped_phn)
+    return mapped_phns
+
 def decode(model, args, json_file, char=False):
     idx2grapheme = {y: x for x, y in args.vocab.items()}
     test_loader = get_dataloader(json_file, 1, False)
@@ -20,6 +38,10 @@ def decode(model, args, json_file, char=False):
         outputs = [[v for i, v in enumerate(j) if i == 0 or v != j[i - 1]] for j in outputs]
         outputs = [list(filter(lambda elem: elem != "_", i)) for i in outputs]
         outputs = [" ".join(i) for i in outputs]
+
+        if '61'in args.vocab:
+            outputs = [" ".join(map_to_39(i)) for i in outputs]
+
         if char:
             cur_stats = cer(trans, outputs, return_dict=True)
         else:
@@ -36,3 +58,7 @@ def decode(model, args, json_file, char=False):
     cor = stats[3] / total_words * 100
     err = (stats[0] + stats[1] + stats[2]) / total_words * 100
     return sub, dele, ins, cor, err
+
+# test = 'sil dh iy ih sil s k oy tcl ih sil d ih n sil d ow n ah sil d eh n ah f ay er s eh el f sil'.split()
+# print(phone_map)
+# print(map_to_39(test))
