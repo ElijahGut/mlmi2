@@ -44,5 +44,6 @@ print('Loading model from {}'.format(model_path))
 model.load_state_dict(torch.load(model_path, map_location=device))
 model.eval()
 
-results = decode(model, args, args.test_json)
+utt_file = 'single_utt.json'
+results = decode(model, args, utt_file)
 print("SUB: {:.2f}%, DEL: {:.2f}%, INS: {:.2f}%, COR: {:.2f}%, PER: {:.2f}%".format(*results))
