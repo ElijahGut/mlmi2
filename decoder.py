@@ -39,7 +39,8 @@ def decode(model, args, json_file, char=False):
         outputs = [list(filter(lambda elem: elem != "_", i)) for i in outputs]
         outputs = [" ".join(i) for i in outputs]
 
-        if '61'in args.vocab:
+        if json_file == 'train_fbank61.json':
+            print('need to map phones')
             outputs = [" ".join(map_to_39(i)) for i in outputs]
 
         if char:
