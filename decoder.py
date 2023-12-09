@@ -40,9 +40,7 @@ def decode(model, args, json_file, char=False):
         outputs = [" ".join(i) for i in outputs]
 
         if args.train_json == 'train_fbank61.json':
-            print(f'old outputs are: {outputs}')
             outputs = map_to_39(outputs)
-            print(f'need to map phones: {outputs}')
 
         if char:
             cur_stats = cer(trans, outputs, return_dict=True)
