@@ -37,7 +37,7 @@
 #! ######################################################################################
 #! ######################################################################################
 #! set configurations in run.py, e.g. options="--train_json=train_fbank.json --lr=0.01"options="--dropout=10 --seed=0"
-options="--dropout=0.3 --grad_clip=0.5 --num_layers=2 --train_json=train_fbank61.json --vocab=vocab_61.txt"
+options="--train_json=train_fbank61.json --vocab=vocab_61.txt --num_layers=2 --dropout=0.2 --grad_clip=0.5"
 #! ######################################################################################
 #! ######################################################################################
 

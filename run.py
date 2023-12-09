@@ -28,7 +28,7 @@ parser.add_argument('--num_epochs', type=int, default=20)
 parser.add_argument('--dropout', type=float, default=0)
 parser.add_argument('--optimiser', type=str, default="sgd")
 parser.add_argument('--grad_clip', type=float, default=None)
-parser.add_argument('--is_bidir', action='store_false', help='Set the flag to False')
+# parser.add_argument('--is_bidir', action='store_false', help='Set the flag to False')
 
 args = parser.parse_args()
 
@@ -50,12 +50,8 @@ print(args)
 args.device = device
 args.vocab = vocab
 
-if args.is_bidir:
-    model = models.BiLSTM(args.num_layers, args.fbank_dims * args.concat, args.model_dims, 
-    len(args.vocab), dropout=args.dropout, is_bidir=False)
-else:
-    model = models.BiLSTM(args.num_layers, args.fbank_dims * args.concat, args.model_dims, 
-    len(args.vocab), dropout=args.dropout, is_bidir=True)
+model = models.BiLSTM(args.num_layers, args.fbank_dims * args.concat, args.model_dims, 
+len(args.vocab), dropout=args.dropout)
 
 if torch.__version__ == "2.1.0":
     model = torch.compile(model)
@@ -63,17 +59,17 @@ if torch.__version__ == "2.1.0":
 num_params = sum(p.numel() for p in model.parameters())
 print('Total number of model parameters is {}'.format(num_params))
 
-start = datetime.now()
-model.to(args.device)
-model_path = train(model, args)
-end = datetime.now()
-duration = (end - start).total_seconds()
-print('Training finished in {} minutes.'.format(divmod(duration, 60)[0]))
-print('Model saved to {}'.format(model_path))
+# start = datetime.now()
+# model.to(args.device)
+# model_path = train(model, args)
+# end = datetime.now()
+# duration = (end - start).total_seconds()
+# print('Training finished in {} minutes.'.format(divmod(duration, 60)[0]))
+# print('Model saved to {}'.format(model_path))
 
-print('Loading model from {}'.format(model_path))
-model.load_state_dict(torch.load(model_path))
-model.eval()
-model.to(device)
-results = decode(model, args, args.test_json)
-print("SUB: {:.2f}%, DEL: {:.2f}%, INS: {:.2f}%, COR: {:.2f}%, PER: {:.2f}%".format(*results))
+# print('Loading model from {}'.format(model_path))
+# model.load_state_dict(torch.load(model_path))
+# model.eval()
+# model.to(device)
+# results = decode(model, args, args.test_json)
+# print("SUB: {:.2f}%, DEL: {:.2f}%, INS: {:.2f}%, COR: {:.2f}%, PER: {:.2f}%".format(*results))
