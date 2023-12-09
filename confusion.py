@@ -12,8 +12,8 @@ with open('vocab_39.txt') as f:
 def compute_confusion(predicted, ground_truth):
     C = np.zeros(V*V).reshape(V,V)
     ops = Levenshtein.editops(predicted, ground_truth)
-    for op, pos_gt, pos_p in ops:   
-        print(op, predicted[pos_p], ground_truth[pos_gt]) 
+    for op, pos_p, pos_gt in ops:   
+        print(op, pos_p, ground_truth[pos_gt]) 
         gt_phn_idx = vocab.index(ground_truth[pos_gt])
         p_phn_idx = vocab.index(predicted[pos_p])
         if op == 'insert':
@@ -28,7 +28,7 @@ def compute_confusion(predicted, ground_truth):
     return C
 
 
-p = 'sil b iy ih sil k s ay dx ih sil d ih n sil d ow n ah sil d eh n ah f ay er s eh l f sil'.split()
+p = 'd b iy ih sil k s ay dx ih sil d ih n sil d ow n ah sil d eh n ah f ay er s eh l f sil'.split()
 gt = 'sil dh iy ih sil s k oy d ih sil d ih n sil d ow n ah sil d eh n ah f ay er s eh l f sil'.split()
 
 p2 = 'sil dh iy ih sil k s ay dx ih sil d ih n sil d ow n ah sil d eh n ah f ay er s eh l f sil'
