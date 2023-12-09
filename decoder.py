@@ -17,10 +17,10 @@ with open('phone_map') as f:
 
 def map_to_39(phns):
     mapped_phns = []
-    for phn in phns:
+    for phn in phns[0].split():
         mapped_phn = phone_map[phn]
-        mapped_phns.append(mapped_phn)
-    return mapped_phns
+        mapped_phns.append(mapped_phn.strip())
+    return [" ".join(mapped_phns)]
 
 def decode(model, args, json_file, char=False):
     idx2grapheme = {y: x for x, y in args.vocab.items()}
@@ -39,9 +39,10 @@ def decode(model, args, json_file, char=False):
         outputs = [list(filter(lambda elem: elem != "_", i)) for i in outputs]
         outputs = [" ".join(i) for i in outputs]
 
-        if json_file == 'train_fbank61.json':
-            print('need to map phones')
-            outputs = [" ".join(map_to_39(i)) for i in outputs]
+        if args.train_json == 'train_fbank61.json':
+            print(f'old outputs are: {outputs}')
+            outputs = map_to_39(outputs)
+            print(f'need to map phones: {outputs}')
 
         if char:
             cur_stats = cer(trans, outputs, return_dict=True)
