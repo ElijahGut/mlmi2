@@ -24,6 +24,8 @@ def train(model, args):
     else:
         optimiser = SGD(model.parameters(), lr=args.lr) 
 
+    scheduler = ReduceLROnPlateau(optimiser, 'min', patience=0, factor=0.5) 
+
     def train_one_epoch(epoch):
         running_loss = 0.
         last_loss = 0.
@@ -57,6 +59,8 @@ def train(model, args):
                 print('  batch {} loss: {}'.format(idx + 1, last_loss))
                 tb_x = epoch * len(train_loader) + idx + 1
                 running_loss = 0.
+        scheduler.step(running_loss)
+        print(f'running loss: {running_loss}')
         return last_loss
 
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -89,11 +93,6 @@ def train(model, args):
             running_val_loss += val_loss
             
         avg_val_loss = running_val_loss / len(val_loader)
-       
-        scheduler = ReduceLROnPlateau(optimiser, 'min', patience=0, factor=0.5) 
-        print(f'avg_val_loss: {avg_val_loss}')
-        scheduler.step(avg_val_loss)
-
         val_decode = decode(model, args, args.val_json)
         print('LOSS train {:.5f} valid {:.5f}, valid PER {:.2f}%'.format(
             avg_train_loss, avg_val_loss, val_decode[4])
