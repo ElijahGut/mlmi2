@@ -59,8 +59,6 @@ def train(model, args):
                 print('  batch {} loss: {}'.format(idx + 1, last_loss))
                 tb_x = epoch * len(train_loader) + idx + 1
                 running_loss = 0.
-        scheduler.step(running_loss)
-        print(f'running loss: {running_loss}')
         return last_loss
 
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -94,6 +92,8 @@ def train(model, args):
             
         avg_val_loss = running_val_loss / len(val_loader)
         val_decode = decode(model, args, args.val_json)
+        scheduler.step(avg_val_loss)
+        print(f'avg val loss: {avg_val_loss}')
         print('LOSS train {:.5f} valid {:.5f}, valid PER {:.2f}%'.format(
             avg_train_loss, avg_val_loss, val_decode[4])
             )
