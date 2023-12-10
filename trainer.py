@@ -49,11 +49,7 @@ def train(model, args):
             if args.grad_clip != None:
                 clip_grad_norm_(model.parameters(), args.grad_clip)
 
-            # what's a good patience?
-            scheduler = ReduceLROnPlateau(optimiser, 'min', patience=0, factor=0.5)
-
             optimiser.step()
-            scheduler.step()
 
             running_loss += loss.item()
             if idx % args.report_interval + 1 == args.report_interval:
@@ -91,6 +87,11 @@ def train(model, args):
             outputs = log_softmax(model(inputs), dim=-1)
             val_loss = criterion(outputs, targets, in_lens, out_lens)
             running_val_loss += val_loss
+            
+            # what's a good patience?
+            scheduler = ReduceLROnPlateau(optimiser, 'min', patience=0, factor=0.5)
+            scheduler.step(val_loss)
+            
         avg_val_loss = running_val_loss / len(val_loader)
         val_decode = decode(model, args, args.val_json)
         print('LOSS train {:.5f} valid {:.5f}, valid PER {:.2f}%'.format(
