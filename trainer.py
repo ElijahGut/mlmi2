@@ -53,6 +53,7 @@ def train(model, args):
             scheduler = ReduceLROnPlateau(optimiser, 'min', patience=0, factor=0.5)
 
             optimiser.step()
+            scheduler.step()
 
             running_loss += loss.item()
             if idx % args.report_interval + 1 == args.report_interval:
