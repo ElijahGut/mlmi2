@@ -90,8 +90,9 @@ def train(model, args):
             
             # what's a good patience?
             scheduler = ReduceLROnPlateau(optimiser, 'min', patience=0, factor=0.5)
-            scheduler.step(val_loss)
-            
+            print(f'val_loss: {val_loss}')
+            # scheduler.step(val_loss)
+
         avg_val_loss = running_val_loss / len(val_loader)
         val_decode = decode(model, args, args.val_json)
         print('LOSS train {:.5f} valid {:.5f}, valid PER {:.2f}%'.format(
